@@ -34,6 +34,8 @@ namespace Homework4.Charts
         private int scaleDistanceX;
         private int scaleDistanceY;
 
+        private int sphereSize;
+
         private Font font;
         private int textWidth;
         private int textHeight;
@@ -61,8 +63,10 @@ namespace Homework4.Charts
 
             this.font = new Font("Arial", 8);
             this.textColor = new SolidBrush(Color.Black);
-            this.textWidth = 10;
+            this.textWidth = 15;
             this.textHeight = 5;
+
+            this.sphereSize = 6;
 
             this.blueColor = new SolidBrush(Color.FromArgb(0, 0, 255));
             this.backgroundColor = new SolidBrush(Color.White);
@@ -93,12 +97,26 @@ namespace Homework4.Charts
                     g.DrawLine(this.pen, new Point(this.SP_START_X + i * this.scaleDistanceX + 1, this.SP_START_Y + this.SP_HEIGHT - this.gapLineLength), new Point(this.SP_START_X + i * this.scaleDistanceX + 1, this.SP_START_Y + this.SP_HEIGHT + this.gapLineLength + 1));
             }
 
-            //173,65
+            //Drawing markers' numbers for Y axis
+            for (int i = minValueGapY; i <= maxValueGapY; i += this.gapY)
+            {
+                Point temp = relativePointPosition(-this.textWidth, i + this.gapLineLength);
+                g.DrawString(i.ToString(), this.font, this.textColor, new PointF(temp.X, temp.Y));
+            }
+
+            //Drawing markers' numbers for X axis
+            for (int i = minValueGapX; i <= maxValueGapX; i += this.gapX)
+            {
+                Point temp = relativePointPosition(i - this.gapLineLength, -this.textWidth);
+                g.DrawString(i.ToString(), this.font, this.textColor, new PointF(temp.X, temp.Y));
+            }
+
+
+            //Visualizing the elements in the scatterplot
             foreach (DataPoint point in this.sample)
             {
                 Point test = relativePointPosition(point.x, point.y);
-                g.FillEllipse(this.blueColor,test.X, test.Y, 8, 8);
-                //g.FillEllipse(this.blueColor, this.SP_START_X + point.x, this.SP_START_Y + this.SP_HEIGHT - point.y, 4, 4);
+                g.FillEllipse(this.blueColor,test.X, test.Y, this.sphereSize, this.sphereSize);
             }
 
 
