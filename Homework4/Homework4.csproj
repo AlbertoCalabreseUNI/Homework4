@@ -46,6 +46,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Charts\ContingentyTable.cs" />
     <Compile Include="Charts\Scatterplot.cs" />
     <Compile Include="CustomForm\MyPictureBox.cs">
       <SubType>Component</SubType>

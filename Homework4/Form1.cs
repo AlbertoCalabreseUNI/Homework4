@@ -19,6 +19,9 @@ namespace Homework4
 
         public IEnumerable<DataPoint> sample;
         Scatterplot sp;
+        ContingentyTable cTable;
+
+        public bool histogram = false;
 
         public Form1()
         {
@@ -27,12 +30,13 @@ namespace Homework4
             this.SetStyle(ControlStyles.AllPaintingInWmPaint | ControlStyles.UserPaint | ControlStyles.DoubleBuffer, true);
             DoubleBuffered = true;
             this.UpdateStyles();
-            
+
             sample = null;
             sp = null;
+            cTable = null;
         }
 
-        
+
 
         private void button1_Click(object sender, EventArgs e)
         {
@@ -41,6 +45,7 @@ namespace Homework4
                    .Select(x => x.Split(','))
                    .Select(x => new DataPoint(Int32.Parse(x[2]), Int32.Parse(x[1])));
             sp = new Scatterplot(sample);
+            cTable = new ContingentyTable(sample);
         }
 
         //Scatterplot button
@@ -51,11 +56,18 @@ namespace Homework4
             this.myPictureBox1.Refresh();
         }
 
-        private void button3_Click(object sender, EventArgs e)
-        {
+        //Draw Histograms inside scatterplot
+        private void button3_Click(object sender, EventArgs e) { this.histogram = !this.histogram; this.myPictureBox1.Refresh(); }
 
+        private void pictureBox1_Paint(object sender, PaintEventArgs e) { sp.Draw(e.Graphics); if (histogram) sp.DrawHistogram(e.Graphics); }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            myPictureBox2.Paint += new System.Windows.Forms.PaintEventHandler(this.pictureBox2_Paint);
+            this.Controls.Add(this.myPictureBox2);
+            this.myPictureBox2.Refresh();
         }
 
-        private void pictureBox1_Paint(object sender, PaintEventArgs e) { sp.Draw(e.Graphics); }
+        private void pictureBox2_Paint(object sender, PaintEventArgs e) { cTable.Draw(e.Graphics); }
     }
 }

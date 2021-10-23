@@ -14,14 +14,16 @@ namespace Homework4.Charts
         private IEnumerable<DataPoint> sample;
 
         private SolidBrush blueColor;
+        private SolidBrush redColor;
+        private SolidBrush greenColor;
         private SolidBrush backgroundColor;
         private SolidBrush textColor;
         private Pen pen;
 
-        private int SP_START_X;
-        private int SP_START_Y;
-        private int SP_WIDTH;
-        private int SP_HEIGHT;
+        public int SP_START_X { get; }
+        public int SP_START_Y { get; }
+        public int SP_WIDTH { get; }
+        public int SP_HEIGHT { get; }
 
         private int gapY;
         private int maxValueGapY;
@@ -39,6 +41,9 @@ namespace Homework4.Charts
         private Font font;
         private int textWidth;
         private int textHeight;
+
+        private int[] weightGroup;
+        private int[] heightGroup;
 
         //TODO FOR FUTURE: Making all the sub-variables being scaled with the scatterplot size
         public Scatterplot(IEnumerable<DataPoint> sampleIn)
@@ -68,9 +73,17 @@ namespace Homework4.Charts
 
             this.sphereSize = 6;
 
-            this.blueColor = new SolidBrush(Color.FromArgb(0, 0, 255));
+            this.blueColor = new SolidBrush(Color.Blue);
+            this.redColor = new SolidBrush(Color.Red);
+            this.greenColor = new SolidBrush(Color.Green);
             this.backgroundColor = new SolidBrush(Color.White);
             this.pen = new Pen(Color.Black);
+
+            //TODO: Make this dynamic
+            this.weightGroup = new int[10];
+            this.heightGroup = new int[20];
+
+            populateArrays();
         }
 
         public void Draw(Graphics g)
@@ -111,15 +124,33 @@ namespace Homework4.Charts
                 g.DrawString(i.ToString(), this.font, this.textColor, new PointF(temp.X, temp.Y));
             }
 
-
             //Visualizing the elements in the scatterplot
             foreach (DataPoint point in this.sample)
             {
                 Point test = relativePointPosition(point.x, point.y);
                 g.FillEllipse(this.blueColor,test.X, test.Y, this.sphereSize, this.sphereSize);
             }
+        }
 
+        public void DrawHistogram(Graphics g)
+        {
+            //X Axis Histogram Vertical
+            for(int i = 0; i < this.maxValueGapX / this.gapX; i++)
+            {
+                int height = this.weightGroup[i] * (this.SP_HEIGHT / this.gapY);
+                g.FillRectangle(this.redColor, this.SP_START_X + i * this.scaleDistanceX * 10, this.SP_START_Y - height, this.SP_WIDTH / this.gapX, height);
+                g.DrawRectangle(this.pen, this.SP_START_X + i * this.scaleDistanceX * 10, this.SP_START_Y - height, this.SP_WIDTH/this.gapX, height);
+            }
 
+            int j = 0;
+            //Y Axis Histogram Horizontal
+            for(int i = this.maxValueGapY / this.gapY; i > 0 / this.gapY; i--)
+            {
+                int width = this.heightGroup[i-1] * (this.SP_WIDTH / this.gapX);
+                g.FillRectangle(this.redColor, this.SP_START_X + this.SP_WIDTH + this.pen.Width, this.SP_HEIGHT + this.gapY * j, width, this.gapY);
+                g.DrawRectangle(this.pen,this.SP_START_X + this.SP_WIDTH + this.pen.Width,this.SP_HEIGHT + this.gapY * j, width,this.gapY);
+                j++;
+            }
         }
 
         public Point relativePointPosition(int x, int y)
@@ -127,6 +158,15 @@ namespace Homework4.Charts
             int newX = this.SP_START_X + (x * this.scaleDistanceX);
             int newY = (this.SP_START_Y + this.SP_HEIGHT) - (y * this.scaleDistanceY);
             return new Point(newX, newY);
+        }
+
+        public void populateArrays()
+        {
+            foreach (DataPoint unit in sample)
+            {
+                weightGroup[unit.x / 10] += 1;
+                heightGroup[unit.y / 10] += 1;
+            }
         }
     }
 }
