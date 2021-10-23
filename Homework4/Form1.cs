@@ -18,7 +18,6 @@ namespace Homework4
     {
 
         public IEnumerable<DataPoint> sample;
-
         Scatterplot sp;
 
         public Form1()
@@ -42,23 +41,21 @@ namespace Homework4
                    .Select(x => x.Split(','))
                    .Select(x => new DataPoint(Int32.Parse(x[1]), Int32.Parse(x[2])));
             sp = new Scatterplot(sample);
+        }
 
-            //TODO: Remove these temporary lines
+        //Scatterplot button
+        private void button2_Click(object sender, EventArgs e)
+        {
             myPictureBox1.Paint += new System.Windows.Forms.PaintEventHandler(this.pictureBox1_Paint);
             this.Controls.Add(this.myPictureBox1);
             this.myPictureBox1.Refresh();
         }
-
-
-
-        
 
         private void button3_Click(object sender, EventArgs e)
         {
 
         }
 
-        //TODO: Add a new form for scatterbox with a custom Picturebox
         private void pictureBox1_Paint(object sender, PaintEventArgs e) { sp.Draw(e.Graphics); }
     }
 }

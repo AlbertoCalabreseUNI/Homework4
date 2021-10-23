@@ -39,7 +39,7 @@ namespace Homework4
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(249, 432);
+            this.button1.Location = new System.Drawing.Point(143, 619);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(282, 38);
             this.button1.TabIndex = 0;
@@ -49,20 +49,21 @@ namespace Homework4
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(12, 428);
+            this.button2.Location = new System.Drawing.Point(12, 619);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(125, 42);
             this.button2.TabIndex = 1;
             this.button2.Text = "Scatterplot";
             this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // button3
             // 
-            this.button3.Location = new System.Drawing.Point(663, 428);
+            this.button3.Location = new System.Drawing.Point(431, 619);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(125, 42);
             this.button3.TabIndex = 2;
-            this.button3.Text = "Histogram";
+            this.button3.Text = "Contingency Table";
             this.button3.UseVisualStyleBackColor = true;
             this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
@@ -70,7 +71,7 @@ namespace Homework4
             // 
             this.myPictureBox1.Location = new System.Drawing.Point(0, 0);
             this.myPictureBox1.Name = "myPictureBox1";
-            this.myPictureBox1.Size = new System.Drawing.Size(800, 400);
+            this.myPictureBox1.Size = new System.Drawing.Size(1260, 600);
             this.myPictureBox1.TabIndex = 3;
             this.myPictureBox1.TabStop = false;
             // 
@@ -78,7 +79,7 @@ namespace Homework4
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 482);
+            this.ClientSize = new System.Drawing.Size(1262, 673);
             this.Controls.Add(this.myPictureBox1);
             this.Controls.Add(this.button3);
             this.Controls.Add(this.button2);
@@ -94,8 +95,8 @@ namespace Homework4
 
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button button3;
         private CustomForm.MyPictureBox myPictureBox1;
+        private System.Windows.Forms.Button button3;
     }
 }
 
