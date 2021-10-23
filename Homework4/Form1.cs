@@ -39,7 +39,7 @@ namespace Homework4
             sample = File.ReadAllLines(@"CSV\data.csv")
                    .Skip(1) // Skips the column names
                    .Select(x => x.Split(','))
-                   .Select(x => new DataPoint(Int32.Parse(x[1]), Int32.Parse(x[2])));
+                   .Select(x => new DataPoint(Int32.Parse(x[2]), Int32.Parse(x[1])));
             sp = new Scatterplot(sample);
         }
 

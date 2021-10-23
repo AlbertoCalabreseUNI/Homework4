@@ -74,9 +74,6 @@
     <None Include="CSV\data.csv">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="CSV\data2.csv">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
     <None Include="CSV\data_full.csv">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
